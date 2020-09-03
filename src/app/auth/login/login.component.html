@@ -1,0 +1,52 @@
+<div class="heading">
+  <h1 class="mt-4">Log In</h1>
+
+  <div *ngIf="submitted">
+    <h3>Form Submitted</h3>
+    <mat-spinner *ngIf="!errMsg" class="child mb-2"></mat-spinner>
+    <div class="alert alert-danger" *ngIf="errMsg">
+      {{errMsg}}
+    </div>
+  </div>
+
+  <!-- reactive form -->
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
+
+    <!-- username -->
+    <div class="input-group form-group mt-3" style="margin-bottom: 0rem;">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Employee ID</span>
+      </div>
+      <input matInput [matAutocomplete]='auto' formControlName="emp_id" type="text" class="form-control"
+        placeholder="eg : 1234" [class.is-invalid]="loginForm.get('emp_id').invalid && loginForm.get('emp_id').touched">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let id of filteredIds | async" [value]="id">
+          {{id}}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+    <small class="text-danger" [class.d-none]="loginForm.get('emp_id').valid || loginForm.get('emp_id').untouched">
+      Employee ID is Required</small>
+
+    <!-- password -->
+    <div class="input-group form-group mt-3" style="margin-bottom: 0rem;">
+      <div class="input-group-prepend">
+        <span class="input-group-text"> Password </span>
+      </div>
+      <input autocomplete formControlName="password" type="password" class="form-control"
+        [class.is-invalid]="loginForm.get('password').invalid && loginForm.get('password').touched">
+    </div>
+    <div>
+      <small class="text-danger" *ngIf="loginForm.get('password').errors?.minlength">
+        Employee ID must be longer than 8 Characters</small>
+      <small class="text-danger"
+        [class.d-none]="!loginForm.get('password').errors?.required || loginForm.get('password').untouched">
+        Employee ID is Required</small>
+    </div>
+    <br>
+
+    <!-- <button type="submit" class="btn btn-primary mt-3">Register</button> -->
+    <button [disabled]="loginForm.invalid" class="btn btn-primary float-right" type="submit">Submit</button>
+
+  </form>
+</div>

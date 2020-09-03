@@ -1,0 +1,43 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+
+<!-- Toolbar -->
+<div class="toolbar" color="primary" role="banner">
+  <div class="spacer"></div>
+  <!-- <button mat-button class="top-btn">Sign Up</button>
+  <button class="top-btn">Log In</button> -->
+  <!-- FIXME (figure out mobile width problem) -->
+  <nav *ngIf="!loggedIn" style="padding: 1rem;">
+    <a mat-raised-button href="/auth/signup" routerLinkActive="circle-link">Sign-up</a>
+    <a mat-raised-button href="/auth/login" routerLinkActive="circle-link">Log-In</a>
+  </nav>
+  <nav *ngIf="loggedIn && (level=='mgt' || level=='emp')" style="padding: 1rem;">
+    <a mat-raised-button href="/empDash" routerLinkActive="circle-link">Employee Home</a>
+    <a mat-raised-button href="/empDash/create" routerLinkActive="circle-link">Create</a>
+  </nav>
+  <nav *ngIf="loggedIn && level=='mgt'" style="padding: 1rem;">
+    <a mat-raised-button href="/dashboard" routerLinkActive="circle-link">Dashboard</a>
+  </nav>
+  <nav *ngIf="loggedIn && (level=='mgt' || level=='grd')" style="padding: 1rem;">
+    <a mat-raised-button href="/guardDash" routerLinkActive="circle-link">Guard Home</a>
+  </nav>
+  <nav *ngIf="loggedIn" style="padding: 1rem;">
+    <button mat-raised-button (click)="logout()">Log-Out</button>
+  </nav>
+  <nav style="padding: 1rem;">
+    <a mat-raised-button href="/" routerLinkActive="circle-link">Home</a>
+  </nav>
+</div>
+
+<div class="mt-3 mb-4">
+  .
+</div>
+
+<router-outlet></router-outlet>

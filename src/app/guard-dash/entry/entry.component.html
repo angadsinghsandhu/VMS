@@ -1,0 +1,121 @@
+<div class="heading mt-3">
+  <h1 class="mt-3">Add Entry</h1>
+
+  <div *ngIf="submitted && !errMsg">
+    <h3 style="text-align: center;">Entry Submitted</h3>
+    <div class="alert alert-info" *ngIf="message">
+      {{message}}
+    </div>
+  </div>
+
+  <div *ngIf="submitted && errMsg">
+    <h3>Error In Entry Submission</h3>
+    <div class="alert alert-danger" *ngIf="errMsg">
+      {{errMsg}}
+    </div>
+  </div>
+
+  <div *ngIf="submitted" style="text-align:center; align-items: center;">
+    <span class="box-border">
+      <span style="margin: auto;">Reload to Edit this Entry again</span>
+      <div class="row-lg-12" style="margin: auto; padding-top: 0.7cm;">
+        <button class="btn btn-light" (click)="reset()">Reset</button>
+      </div>
+    </span>
+
+    <span class="box-border">
+      <span style="margin: auto;">Go Back to Guard Dashboard</span>
+      <div class="row-lg-12" style="margin: auto; padding-top: 0.7cm;">
+        <button class="btn btn-light" (click)="goBack()">Go Back</button>
+      </div>
+    </span>
+  </div>
+
+
+  <!-- reactive form -->
+  <form [formGroup]=entryUpdate *ngIf="!submitted" (ngSubmit)="onSubmit()" type="submit" class="form">
+
+    <!-- Name Form -->
+    <div class="input-group form-group mt-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Employee ID</span>
+      </div>
+      <input type="text" [attr.disabled]="true" class="form-control" formControlName="emp_id">
+    </div>
+
+    <!-- Employee ID Form -->
+    <div class="input-group form-group mt-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Entry Number</span>
+      </div>
+      <input id="entry_num" [attr.disabled]="true" formControlName="entry_num" class="form-control" readonly>
+    </div>
+
+    <!-- Accompany Form -->
+    <div class="input-group form-group mt-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Number of people accompanying the Visitor</span>
+      </div>
+      <input type="number" min="1" required [class.is-invalid]="accompany.invalid && accompany.touched"
+        class="form-control" formControlName="accompany">
+    </div>
+    <small class="text-danger" *ngIf="accompany.invalid && accompany.touched">Number is Required</small>
+    <small class="text-danger" *ngIf="entryUpdate.controls['accompany'].value<1 && accompany.touched">Number should be
+      positive</small>
+
+    <!-- Pass ID Form -->
+    <div class="input-group form-group mt-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Pass ID assigned to Visitor</span>
+      </div>
+      <input type="number" min="1" required [class.is-invalid]="pass_id.invalid && pass_id.touched" class="form-control"
+        formControlName="pass_id">
+    </div>
+    <small class="text-danger" *ngIf="pass_id.invalid && pass_id.touched">Pass ID is Required</small>
+    <small class="text-danger" *ngIf="entryUpdate.controls['pass_id']?.value<1 && pass_id.touched">Number should be
+      positive</small>
+
+    <!-- Entry Time Form -->
+    <div class="form-group input-group mt-3">
+      <div class="input-group-prepend pr-4">
+        <span class="input-group-text">Time of Entry</span>
+      </div>
+      <ngb-timepicker formControlName="entry_time" required></ngb-timepicker>
+    </div>
+
+    <!-- Add Image -->
+    <div>
+      <label for="file-upload" class="custom-file-upload">
+        <i class="fa fa-cloud-upload"></i> Upload Image
+      </label>
+      <input type="file" (change)="onFileSelect($event)" id="file-upload">
+    </div>
+
+    <!-- <div class="media" *ngIf="entryUpdate.controls['image'].value">
+      <div class="media-left">
+        <img class="media-object" width="200" [attr.src]="entryUpdate.controls['image'].value" alt="entry image">
+      </div>
+    </div> -->
+
+    <!-- 'https://wallpaperaccess.com/full/1356106.jpg' -->
+
+    <!-- Remark Form -->
+    <div class="input-group form-group mt-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Remarks</span>
+      </div>
+      <input type="text" class="form-control" formControlName="remarks">
+    </div>
+
+    <!-- Submit button -->
+    <div class="row mt-5">
+      <div class="col-lg-12">
+        <button id="submit" [disabled]="entryUpdate.invalid" class="btn btn-primary float-right"
+          type="submit">Submit</button>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<!-- <img attr.src="{{BACK_URL}}"> -->

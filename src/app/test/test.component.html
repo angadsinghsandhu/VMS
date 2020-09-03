@@ -1,0 +1,94 @@
+<div style="display: grid; place-items: center;">;
+  <p>test works! This URL is :</p>
+  <div>{{x}}</div>
+  <br>
+  <ul>
+    <li (click)="onSelect(color, indexOfElement)" [class.select]="isSelected(color)"
+      *ngFor="let color of colors; let indexOfElement = index;">
+      <span class="badge">{{indexOfElement+1}}</span>. {{color}}
+    </li>
+  </ul>
+  <br><br><br><br><br><br>
+  <div>
+    <input [(ngModel)]="name" type="text">
+    <!-- Two Way Binding using interpolation -->
+    <!-- "[]" for property binding -->
+    <!-- "()" for event binding -->
+    {{nameAdd(name)}}
+  </div>
+  <br>
+
+  <div *ngIf="emp; then thenT; else elseT"></div>
+
+  <ng-template #thenT>
+    <h1>Employee!!</h1>
+  </ng-template>
+
+  <ng-template #elseT>
+    <h1>Manager!!</h1>
+  </ng-template>
+
+  <div [ngSwitch]="status">
+    <div *ngSwitchCase="'active'"> You picked Active </div>
+    <div *ngSwitchCase="'passive'"> You picked Passive </div>
+    <div *ngSwitchCase="'invalid'"> You picked Invalid </div>
+    <div *ngSwitchDefault> You picked WTF </div>
+  </div>
+
+  <br>
+  <br>
+  <div *ngFor="let color of colors; index as i">
+    <div>number {{i}} is {{color}}</div>
+  </div>
+
+  <!-- getting data from parent component -->
+  <br>
+  <h2>{{"Hello " + data}}</h2>
+
+  <!-- creating event to send data to parent -->
+  <div>
+    <br>
+    <button type="button" (click)="fireEvent()">Send Event</button>
+  </div>
+
+  <!-- pipes -->
+  <br>
+  <span>{{data}}</span>
+  <br>
+  <span>{{data | lowercase}}</span>
+  <br>
+  <span>{{data | uppercase}}</span>
+  <br>
+  <span>{{data | slice:3:5}}</span>
+
+  <br>
+  <div>{{5.678 | number:'1.2-3'}}</div>
+  <div>{{5.678 | number:'3.4-5'}}</div>
+  <div>{{5.678 | number:'3.1-2'}}</div>
+
+  <br>
+  <div>{{5.678 | currency:"INR"}}</div>
+
+  <!-- TODO (Look at following date pipes) -->
+  <br>
+  <div>{{date | date}}</div>
+  <br>
+  <span>Formatted Dates: </span>
+  <div>{{date | date:'short'}}</div>
+  <div>{{date | date:'shortDate'}}</div>
+  <div>{{date | date:'shortTime'}}</div>
+
+  <!-- Iterating over employee -->
+  <div *ngFor="let employee of employees">
+    <li>{{employee}}</li>
+  </div>
+
+  <!-- user object -->
+  <br>
+  <div style="width: 3rem;">
+    {{user | json}}
+  </div>
+  <div>
+    {{errMsg}}
+  </div>
+</div>

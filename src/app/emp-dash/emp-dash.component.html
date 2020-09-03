@@ -1,0 +1,104 @@
+<div class="alert alert-danger pt-3" *ngIf="errUser">
+  {{errUser}}
+  <br>
+  <div>
+    {{user | json}}
+  </div>
+</div>
+
+<div *ngIf="!errUser" class="container pt-3">
+
+  <!-- name -->
+  <div class="title">
+    <h1> Welcome, {{user?.name}} </h1>
+  </div>
+
+  <!-- id and contact info -->
+  <div>
+    <h3>
+      <span style="padding-right: 3rem;">ID: {{user?.emp_id}}</span>
+      <span>Contact Number: {{user?.contact_info}}</span>
+    </h3>
+  </div>
+
+  <!-- email -->
+  <div>
+    <h3><span>Email: {{user?.email}}</span></h3>
+  </div>
+
+  <!--if condition-->
+  <div *ngIf="!entrys" class="mt-5">
+    <mat-spinner class="child mb-2"></mat-spinner>
+  </div>
+  <div *ngIf="entrys" class="mt-5">
+    <div class="child mb-2">
+      <h1 id="entry">Entrys</h1>
+    </div>
+
+    <!--for condition-->
+    <mat-accordion>
+      <div class="mt-2" *ngFor="let entry of entrys; let index=index">
+
+        <mat-expansion-panel>
+
+          <!-- header when panel collapsed -->
+          <mat-expansion-panel-header>
+            <!-- add name, emp_id and date -->
+            <mat-panel-title>Name: {{entry?.name | uppercase }}</mat-panel-title>
+            <mat-panel-description>Employee ID: {{entry?.emp_id}}</mat-panel-description>
+            <mat-panel-description>Date: {{entry?.visit_date | date:"mediumDate"}}</mat-panel-description>
+            <mat-panel-description>status: {{entry?.active}}</mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <hr color="black">
+          <!-- add further info -->
+          <div>
+
+            <div class="left-side">
+              <!-- accompany and pass_id -->
+              <div>
+                <span>
+                  <mat-panel-description class="wrap-content">accompany: {{entry?.accompany}}
+                  </mat-panel-description>
+                </span>
+                <span>
+                  <mat-panel-description class="wrap-content">pass ID: {{entry?.pass_id}}</mat-panel-description>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- details -->
+          <div class="right-side">
+            <!-- entry and exit time -->
+            <div>
+              <span>
+                <mat-panel-title>Entry Time:
+                  {{getTime(entry?.entry_time) || "  *no entry time added*  "}}
+                </mat-panel-title>
+              </span>
+              <span>
+                <mat-panel-title> Exit Time:
+                  {{getTime(entry?.exit_time) || "  *no exit time added*  "}}
+                </mat-panel-title>
+              </span>
+            </div>
+
+            <!-- remark -->
+            <footer class="bottom-side">
+              <mat-panel-description>Remarks: {{entry?.remarks}}
+              </mat-panel-description>
+            </footer>
+          </div>
+
+          <!-- add button -->
+          <button mat-flat-button color="primary" id="edit" (click)="onEdit(index)" class="btn btn-primary float-right"
+            type="button">Edit</button>
+
+        </mat-expansion-panel>
+
+      </div>
+    </mat-accordion>
+  </div>
+
+</div>

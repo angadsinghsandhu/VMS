@@ -1,0 +1,277 @@
+<div class="alert alert-danger mt-5" *ngIf="errUser">
+  {{errUser}}
+  <br>
+  <div>
+    {{user | json}}
+  </div>
+</div>
+
+<div *ngIf="!errUser" class="content pt-4">
+
+  <!-- name -->
+  <div class="title mt-4">
+    <h1> Welcome, {{user?.name}} </h1>
+  </div>
+
+  <!-- id and contact info -->
+  <div>
+    <h3>
+      <span style="padding-right: 3rem;">ID: {{user?.emp_id}}</span>
+      <span>Contact Number: {{user?.contact_info}}</span>
+    </h3>
+  </div>
+
+  <!-- email -->
+  <div>
+    <h3><span>Email: {{user?.email}}</span></h3>
+  </div>
+
+</div>
+
+<div class="container">
+  <div class="mat-display-1 mt-3" style="text-align: center;">
+    Today's Entrys
+    <div class="pt-2" style="text-align: center;">
+      <button (click)="setFilter('active')" class="btn btn-success">Active</button>
+      <button (click)="setFilter('all')" class="btn btn-info ml-1 mr-1">All</button>
+      <button (click)="setFilter('deactive')" class="btn btn-warning">Deactive</button>
+    </div>
+  </div>
+
+  <div class="badge-warning mt-2" *ngIf="!entrys">
+    No Visits Today
+  </div>
+
+  <div *ngIf="entrys">
+
+    <!--for condition-->
+    <mat-accordion>
+      <div class="mt-1" *ngFor="let entry of entrys; let index=index">
+
+        <div [ngSwitch]=filter>
+
+          <!-- active filter -->
+          <div *ngSwitchCase="'active'">
+            <mat-expansion-panel *ngIf="entry.active == true" [ngClass]="{'display-warn': !entry.active}">
+
+              <!-- header when panel collapsed -->
+              <mat-expansion-panel-header>
+                <!-- add name, emp_id and date -->
+                <mat-panel-title>Name: {{entry?.name | uppercase }}</mat-panel-title>
+                <mat-panel-description>Employee ID: {{entry?.emp_id}}</mat-panel-description>
+                <mat-panel-description>Date: {{entry?.visit_date | date:"mediumDate"}}</mat-panel-description>
+                <mat-panel-description>status: {{entry?.active}}</mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <hr color="black">
+              <!-- add further info -->
+              <div class="parent">
+                <!-- image 50% -->
+                <div class="left-side">
+                  <img class="myImg"
+                    src="{{ entry?.image || 'https://i.chzbgr.com/full/2001413/hC842304A/ten-facebook-profile-pic-silhouettes-that-imply-your-default-mode-is-cat'}}">
+                </div>
+
+                <!-- details -->
+                <div class="right-side ml-3">
+                  <!-- entry and exit time -->
+                  <div class="mt-2 pt-2">
+                    <span>
+                      <mat-panel-title class="wrap-content mr-5 pr-5">Entry Time:
+                        {{getTime(entry?.entry_time) || "*Add entry time*"}}
+                      </mat-panel-title>
+                    </span>
+                    <span>
+                      <mat-panel-title class="wrap-content"> Exit Time:
+                        {{getTime(entry?.exit_time) || "  *Add exit time*  "}}
+                      </mat-panel-title>
+                    </span>
+                  </div>
+                  <!-- accompany and pass_id -->
+                  <div class="mt-4 pt-3">
+                    <span>
+                      <mat-panel-description class="wrap-content mr-5 pr-3">accompany: {{entry?.accompany}}
+                      </mat-panel-description>
+                    </span>
+                    <span>
+                      <mat-panel-description class="wrap-content">pass ID: {{entry?.pass_id}}</mat-panel-description>
+                    </span>
+                  </div>
+                </div>
+                <!-- remark -->
+                <footer class="bottom-side">
+                  <mat-panel-description>Remarks: {{entry?.remarks}}
+                  </mat-panel-description>
+                </footer>
+
+
+              </div>
+
+              <!-- add button -->
+              <button mat-flat-button color="accent" id="edit" (click)="onEntry(entry?.emp_id, entry?.index)"
+                class="btn btn-primary float-right" type="button">Add Entry</button>
+              <button *ngIf="entry.active == false" mat-flat-button color="accent" id="edit" (click)="isExit = !isExit"
+                class="btn btn-primary float-right mr-1" type="button">Add Exit</button> <br>
+
+
+              <div *ngIf="isExit && entry.active == false">
+                <hr>
+                <div class="center-div pt-3">
+                  <label>Enter Exit Time:</label>
+                  <ngb-timepicker [(ngModel)]="exit_time"></ngb-timepicker>
+                </div>
+
+                <button mat-flat-button color="accent" id="add_exit_time" (click)="onExit(index)"
+                  class="btn btn-primary float-right" type="button">Submit</button>
+              </div>
+
+            </mat-expansion-panel>
+          </div>
+
+          <!-- deactive filter -->
+          <div *ngSwitchCase="'deactive'">
+            <mat-expansion-panel *ngIf="entry.active == false" [ngClass]="{'display-warn': !entry.active}">
+
+              <!-- header when panel collapsed -->
+              <mat-expansion-panel-header>
+                <!-- add name, emp_id and date -->
+                <mat-panel-title>Name: {{entry?.name | uppercase }}</mat-panel-title>
+                <mat-panel-description>Employee ID: {{entry?.emp_id}}</mat-panel-description>
+                <mat-panel-description>Date: {{entry?.visit_date | date:"mediumDate"}}</mat-panel-description>
+                <mat-panel-description>status: {{entry?.active}}</mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <hr color="black">
+              <!-- add further info -->
+              <div class="parent">
+                <!-- image 50% -->
+                <div class="left-side">
+                  <img class="myImg"
+                    src="{{ entry?.image || 'https://i.chzbgr.com/full/2001413/hC842304A/ten-facebook-profile-pic-silhouettes-that-imply-your-default-mode-is-cat'}}">
+                </div>
+
+                <!-- details -->
+                <div class="right-side ml-3">
+                  <!-- entry and exit time -->
+                  <div class="mt-2 pt-2">
+                    <span>
+                      <mat-panel-title class="wrap-content mr-5 pr-5">Entry Time:
+                        {{getTime(entry?.entry_time) || "*Add entry time*"}}
+                      </mat-panel-title>
+                    </span>
+                    <span>
+                      <mat-panel-title class="wrap-content"> Exit Time:
+                        {{getTime(entry?.exit_time) || "  *Add exit time*  "}}
+                      </mat-panel-title>
+                    </span>
+                  </div>
+                  <!-- accompany and pass_id -->
+                  <div class="mt-4 pt-3">
+                    <span>
+                      <mat-panel-description class="wrap-content mr-5 pr-3">accompany: {{entry?.accompany}}
+                      </mat-panel-description>
+                    </span>
+                    <span>
+                      <mat-panel-description class="wrap-content">pass ID: {{entry?.pass_id}}</mat-panel-description>
+                    </span>
+                  </div>
+                </div>
+                <!-- remark -->
+                <footer class="bottom-side">
+                  <mat-panel-description>Remarks: {{entry?.remarks}}
+                  </mat-panel-description>
+                </footer>
+
+
+              </div>
+
+              <!-- add button -->
+              <button mat-flat-button color="accent" id="edit" (click)="onEntry(entry?.emp_id, entry?.index)"
+                class="btn btn-primary float-right" type="button">Add
+                Entry</button>
+              <button *ngIf="entry.active == false && !entry.exit_time" mat-flat-button color="accent" id="edit"
+                (click)="isExit = !isExit" class="btn btn-primary float-right mr-1" type="button">Add Exit</button> <br>
+
+            </mat-expansion-panel>
+          </div>
+
+          <!-- all filter -->
+          <div *ngSwitchDefault>
+            <mat-expansion-panel [ngClass]="{'display-warn': !entry.active}">
+
+              <!-- header when panel collapsed -->
+              <mat-expansion-panel-header>
+                <!-- add name, emp_id and date -->
+                <mat-panel-title>Name: {{entry?.name | uppercase }}</mat-panel-title>
+                <mat-panel-description>Employee ID: {{entry?.emp_id}}</mat-panel-description>
+                <mat-panel-description>Date: {{entry?.visit_date | date:"mediumDate"}}</mat-panel-description>
+                <mat-panel-description>status: {{entry?.active}}</mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <hr color="black">
+              <!-- add further info -->
+              <div class="parent">
+                <!-- image 50% -->
+                <div class="left-side">
+                  <img class="myImg"
+                    src="{{ entry?.image || 'https://i.chzbgr.com/full/2001413/hC842304A/ten-facebook-profile-pic-silhouettes-that-imply-your-default-mode-is-cat'}}">
+                </div>
+
+                <!-- details -->
+                <div class="right-side ml-3">
+                  <!-- entry and exit time -->
+                  <div class="mt-2 pt-2">
+                    <span>
+                      <mat-panel-title class="wrap-content mr-5 pr-5">Entry Time:
+                        {{getTime(entry?.entry_time) || "  *Add entry time*  "}}
+                      </mat-panel-title>
+                    </span>
+                    <span>
+                      <mat-panel-title class="wrap-content"> Exit Time:
+                        {{getTime(entry?.exit_time) || "  *Add exit time*  "}}
+                      </mat-panel-title>
+                    </span>
+                  </div>
+                  <!-- accompany and pass_id -->
+                  <div class="mt-4 pt-3">
+                    <span>
+                      <mat-panel-description class="wrap-content mr-5 pr-3">accompany: {{entry?.accompany}}
+                      </mat-panel-description>
+                    </span>
+                    <span>
+                      <mat-panel-description class="wrap-content">pass ID: {{entry?.pass_id}}</mat-panel-description>
+                    </span>
+                  </div>
+                </div>
+                <!-- remark -->
+                <footer class="bottom-side">
+                  <mat-panel-description>Remarks: {{entry?.remarks}}
+                  </mat-panel-description>
+                </footer>
+              </div>
+
+              <!-- add button -->
+              <button mat-flat-button color="accent" id="edit" (click)="onEntry(entry?.emp_id, entry?.index)"
+                class="btn btn-primary float-right" type="button">Add Entry</button>
+              <button *ngIf="entry.active == false && !entry.exit_time" mat-flat-button color="accent" id="edit"
+                (click)="isExit = !isExit" class="btn btn-primary float-right mr-1" type="button">Add Exit</button> <br>
+
+              <div *ngIf="isExit && entry.active == false && !entrys[index].exit_time">
+                <hr>
+                <div class="center-div pt-3">
+                  <label>Enter Exit Time:</label>
+                  <ngb-timepicker [(ngModel)]="exit_time"></ngb-timepicker>
+                </div>
+
+                <button (click)="onExit(index)" mat-flat-button color="accent" id="add_exit_time"
+                  class="btn btn-primary float-right" type="button">Submit</button>
+              </div>
+
+            </mat-expansion-panel>
+          </div>
+        </div>
+
+      </div>
+    </mat-accordion>
+  </div>
+</div>

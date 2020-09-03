@@ -1,0 +1,27 @@
+.heading {
+  display: grid;
+  place-items: center;
+  grid-template-rows: auto 1fr auto;
+}
+
+.form {
+  width: 80%;
+}
+
+#nameId.ng-valid {
+  border: 5px solid green;
+}
+
+#nameId.ng-invalid {
+  border: 5px solid red;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}

@@ -1,0 +1,21 @@
+{
+  "_id": "5f1c24ca3d1e604954a38ab6",
+  "level": "emp",
+  "contact_info": null,
+  "entrys": [{
+    "status": "passive",
+    "end_actual": null,
+    "pass_id": null,
+    "accompany": 1,
+    "_id": "5f1d893f4187996ee8cd2e06",
+    "name": "Angad Sandhu",
+    "emp_id": 3312567,
+    "date_start": "2020-07-26T13:46:39.874+00:00",
+    "date_end": "2020-07-26T13:46:39.874+00:00"
+  }],
+  "name": "9811777514",
+  "emp_id": 3312567,
+  "email": "test7@test.com",
+  "password": "$2b$10$nkiQEGVLzYbTx1goIj.i2urMQ.YKkW5z9FQfOMjSA0F94Gj7ju9tK",
+  "__v": 0
+}
