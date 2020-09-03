@@ -1,0 +1,77 @@
+<div class="heading">
+  <h1 class="mt-4">Sign Up</h1>
+  <div *ngIf="submitted">
+    <h3>Form Submitted</h3>
+    <div class="alert alert-danger" *ngIf="errMsg">
+      {{errMsg}}
+    </div>
+  </div>
+  <form #userForm="ngForm" *ngIf="!submitted" (ngSubmit)="onSubmit(userForm)" novalidate type="submit" class="form">
+
+    <!-- Name Form -->
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Name</span>
+      </div>
+      <input type="text" required #nameId="ngModel" [class.is-invalid]="nameId.invalid && nameId.touched"
+        class="form-control" placeholder="Abc Xyz" name="name" [(ngModel)]="user.name">
+    </div>
+    <small class="text-danger" *ngIf="nameId.invalid && nameId.touched">Name is Required</small>
+
+
+    <!-- Employee ID Form -->
+    <div class="input-group mt-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Employee ID</span>
+      </div>
+      <input type="number" required #emp_id="ngModel" [class.is-invalid]="emp_id.invalid && emp_id.touched"
+        class="form-control" placeholder="1234" name="emp_id" [(ngModel)]="user.emp_id">
+    </div>
+    <small class="text-danger" *ngIf="emp_id.invalid && emp_id.touched">Employee ID is Required</small>
+
+    <!-- Employee email Form -->
+    <div class="input-group mt-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Email</span>
+      </div>
+      <input type="email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required
+        #emailId="ngModel" [class.is-invalid]="emailId.invalid && emailId.touched" class="form-control"
+        placeholder="name@example.com" name="email" [(ngModel)]="user.email">
+    </div>
+    <small class="text-danger" *ngIf="emailId.invalid && emailId.touched">Email is Required and must have Valid
+      Structure</small>
+
+    <!-- Password -->
+    <div class="form-group mt-3" style="margin-bottom: 0rem;">
+      <label for="exampleInputPassword1">Password</label>
+      <input autocomplete type="password" required #passwordId="ngModel"
+        [class.is-invalid]="passwordId.invalid && passwordId.touched" class="form-control" name="password"
+        [(ngModel)]="user.password">
+    </div>
+    <small class="text-danger" *ngIf="passwordId.errors?.required && passwordId.invalid && passwordId.touched">Password
+      is Required</small>
+    <small class="text-danger" *ngIf="user.password?.length<8  && passwordId.touched">Password
+      should be longer than 8 characters</small>
+
+    <!-- Contact Number -->
+    <div class="form-group mt-3" style="margin-bottom: 0rem;">
+      <label for="exampleInputPassword1">Phone Number</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">+91</span>
+        </div>
+        <input type="text" required pattern="^\d{10}$" #contact_info="ngModel"
+          [class.is-invalid]="contact_info.invalid && contact_info.touched" class="form-control" name="contact_info"
+          [(ngModel)]="user.contact_info">
+      </div>
+    </div>
+    <small class="text-danger" *ngIf="contact_info.errors?.required && contact_info.invalid && contact_info.touched">
+      Phone Number isRequired</small>
+    <small class="text-danger" *ngIf="contact_info.errors?.pattern && contact_info.invalid && contact_info.touched">
+      Phone Number must be 10 digits long</small>
+
+    <br><br>
+
+    <button [disabled]="userForm.form.invalid" class="btn btn-primary float-right" type="submit">Submit</button>
+  </form>
+</div>

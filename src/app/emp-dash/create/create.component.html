@@ -1,0 +1,77 @@
+<div class="heading pt-3">
+  <h1>Create New Entry</h1>
+
+  <div *ngIf="submitted && !errMsg">
+    <h3 style="text-align: center;">Entry Submitted</h3>
+    <div class="alert alert-info" *ngIf="message">
+      {{message}}
+    </div>
+  </div>
+
+  <div *ngIf="submitted && errMsg">
+    <h3>Error In Entry Submission</h3>
+    <div class="alert alert-danger" *ngIf="errMsg">
+      {{errMsg}}
+    </div>
+  </div>
+
+  <div *ngIf="submitted" style="text-align:center; align-items: center;">
+    <span class="box-border">
+      <span style="margin: auto;">Create Another Entry by Employee</span>
+      <div class="row-lg-12" style="margin: auto; padding-top: 0.7cm;">
+        <button class="btn btn-light" (click)="reset()">Reset</button>
+      </div>
+    </span>
+
+    <span class="box-border">
+      <span style="margin: auto;">Go Back to Employee Dashboard</span>
+      <div class="row-lg-12" style="margin: auto; padding-top: 0.7cm;">
+        <button class="btn btn-light" (click)="goBack()">Go Back</button>
+      </div>
+    </span>
+  </div>
+
+
+
+  <form #entryForm="ngForm" *ngIf="!submitted" (ngSubmit)="onSubmit(entryForm)" novalidate type="submit" class="form">
+    <!-- Name Form -->
+    <div class="input-group mt-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Name of Visitor</span>
+      </div>
+      <input type="text" required #name="ngModel" [class.is-invalid]="name.invalid && name.touched" class="form-control"
+        placeholder="Abc Xyz" name="name" [(ngModel)]="entry.name">
+    </div>
+    <small class="text-danger" *ngIf="name.invalid && name.touched">Name is Required</small>
+
+    <!-- Employee ID Form -->
+    <div class="input-group mt-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Employee ID</span>
+      </div>
+      <input id="emp_id" required name="emp_id" #emp_id="ngModel" [(ngModel)]="entry.emp_id"
+        [class.is-invalid]="!entry.emp_id" class="form-control" readonly value="">
+      <button class="btn btn-primary" type="button" (click)="onLoad()">get Emp-ID</button>
+    </div>
+    <small class="text-info" *ngIf="emp_id.invalid">Emp-Id is Required, please press the button</small>
+
+    <!-- visit_date Form -->
+    <div class="input-group mt-3">
+      <div class="input-group-prepend">
+        <label for="example-date-input" class="input-group-text">Date</label>
+      </div>
+      <input id="visit_date" value="2020-01-01" required name="visit_date" [(ngModel)]="entry.visit_date"
+        #visit_date="ngModel" [class.is-invalid]="visit_date.invalid && visit_date.touched" class="form-control"
+        type="date">
+    </div>
+    <small class="text-danger" *ngIf="visit_date.invalid && visit_date.touched">Please select a valid date</small>
+
+    <div class="row mt-3">
+      <div class="col-lg-12">
+        <button id="submit" [disabled]="entryForm.form.invalid" class="btn btn-primary float-right"
+          type="submit">Submit</button>
+      </div>
+    </div>
+
+  </form>
+</div>

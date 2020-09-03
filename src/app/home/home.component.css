@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.imgbox {
+  display: grid;
+  height: 100%;
+  align-items: center;
+  align-content: center;
+}
+
+.center-fit {
+  max-width: 100%;
+  max-height: 100vh;
+  margin: auto;
+}
+
+.centered-1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.centered-2 {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#overlayContainer {
+  position: relative !important;
+}
+
+div.over_lay {
+  opacity: .9;
+  background-color: black;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 256px;
+  width: 256px;
+}

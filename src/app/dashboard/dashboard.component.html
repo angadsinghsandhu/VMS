@@ -1,0 +1,145 @@
+<div class="pt-3" style="text-align: center;">
+  <span class="mat-display-2">Search User</span>
+  <div class="container pt-3" style="text-align: center;">
+    <button (click)="idSearch = true; submitted = false" class="btn btn-info mr-1">Search By ID</button>
+    <button (click)="idSearch = false; visit_date='2020-01-01'; submitted = false" class="btn btn-warning">Search By
+      Date</button>
+  </div>
+</div>
+
+<div *ngIf="idSearch" class="input-group container pt-3 mb-3">
+
+  <input type="number" id="emp_id" class="form-control" placeholder="Employee ID" [(ngModel)]="emp_id"
+    aria-label="Employee ID" aria-describedby="basic-addon2" required name="emp_id" #myControl="ngModel">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" (click)="onSearch()" type="button">Search</button>
+  </div>
+
+</div>
+<div *ngIf="!idSearch" class="input-group container pt-3 mb-3">
+
+  <input type="date" value="2020-01-01" id="visit_date" class="form-control" placeholder="Date of Visit"
+    [(ngModel)]="visit_date" aria-label="Date of Visit" aria-describedby="basic-addon2" required name="visit_date"
+    #myControl="ngModel">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" (click)="onSearch()" type="button">Search</button>
+  </div>
+
+</div>
+
+<div class="container">
+  <div class="badge-warning" *ngIf="submitted && errMsg">
+    Error Occoured : {{errMsg}}
+  </div>
+  <div class="badge-warning" *ngIf="submitted && !user && !errMsg">
+    No Entrys Retrieved
+  </div>
+
+  <!-- show list -->
+  <div *ngIf="submitted && !errMsg && user">
+
+    <!-- user details -->
+    <div *ngIf="idSearch">
+      <!-- name -->
+      <div class="title">
+        <h1>{{user?.name}} </h1>
+      </div>
+
+      <!-- id and contact info -->
+      <div>
+        <h3>
+          <span style="padding-right: 3rem;">ID: {{user?.emp_id}}</span>
+          <span>Contact Number: {{user?.contact_info}}</span>
+        </h3>
+      </div>
+
+      <!-- email -->
+      <div>
+        <h3><span>Email: {{user?.email}}</span></h3>
+      </div>
+
+      <!-- update and delete user  -->
+      <div class="" style="text-align: end;">
+        <!-- <button (click)="onUpdateUser()" class="btn btn-warning mr-1">Update</button> -->
+        <button (click)="onDelUser()" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+
+    <!--if condition-->
+    <div *ngIf="!entrys" class="child mt-5">
+      <mat-spinner class="child mb-2"></mat-spinner>
+    </div>
+    <div *ngIf="entrys" class="child mt-5">
+      <div class="child mb-2">
+        <h1 id="entry">Entrys</h1>
+      </div>
+
+      <!--for condition-->
+      <mat-accordion>
+        <div class="mt-2" *ngFor="let entry of entrys; let index=index">
+
+          <mat-expansion-panel [ngClass]="{'display-warn': !entry.active}">
+
+            <!-- header when panel collapsed -->
+            <mat-expansion-panel-header>
+              <!-- add name, emp_id and date -->
+              <mat-panel-title>Name: {{entry?.name | uppercase }}</mat-panel-title>
+              <mat-panel-description>Employee ID: {{entry?.emp_id}}</mat-panel-description>
+              <mat-panel-description>Date: {{entry?.visit_date | date:"mediumDate"}}</mat-panel-description>
+              <mat-panel-description>status: {{entry?.active}}</mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <hr color="black">
+            <!-- add further info -->
+            <div class="parent">
+              <!-- image 50% -->
+              <div class="left-side">
+                <img class="myImg"
+                  src="{{ entry?.image || 'https://i.chzbgr.com/full/2001413/hC842304A/ten-facebook-profile-pic-silhouettes-that-imply-your-default-mode-is-cat'}}">
+              </div>
+
+              <!-- details -->
+              <div class="right-side ml-3">
+                <!-- entry and exit time -->
+                <div class="mt-2 pt-2">
+                  <span>
+                    <mat-panel-title class="wrap-content mr-5 pr-5">Entry Time:
+                      {{getTime(entry?.entry_time) || "  *no entry time added*  "}}
+                    </mat-panel-title>
+                  </span>
+                  <span>
+                    <mat-panel-title class="wrap-content"> Exit Time:
+                      {{getTime(entry?.exit_time) || "  *no exit time added*  "}}
+                    </mat-panel-title>
+                  </span>
+                </div>
+                <!-- accompany and pass_id -->
+                <div class="mt-4 pt-3">
+                  <span>
+                    <mat-panel-description class="wrap-content mr-5 pr-3">accompany: {{entry?.accompany}}
+                    </mat-panel-description>
+                  </span>
+                  <span>
+                    <mat-panel-description class="wrap-content">pass ID: {{entry?.pass_id}}</mat-panel-description>
+                  </span>
+                </div>
+              </div>
+              <!-- remark -->
+              <footer class="bottom-side">
+                <mat-panel-description>Remarks: {{entry?.remarks}}
+                </mat-panel-description>
+              </footer>
+            </div>
+            <!-- update and delete entry  -->
+            <div class="" style="text-align: end;">
+              <!-- <button (click)="onUpdateEntry(entry.emp_id, entry.index)" class="btn btn-warning mr-1">Update</button> -->
+              <button (click)="onDelEntry(entry.emp_id, entry.index)" class="btn btn-danger">Delete</button>
+            </div>
+          </mat-expansion-panel>
+
+        </div>
+      </mat-accordion>
+    </div>
+
+  </div>
+</div>
