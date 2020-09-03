@@ -2,10 +2,10 @@
 
 ## <ins> Description </ins>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
-A python project that outputs the meaning of a word. Hence, automating a dictionary.
-It also has advanced checking system to look for errors. Eg: If you type `Rainn` 
-instead of `Rain`. It will prompt you for it, instead of simply throwing an error.
+This project was made to streamline the process of creating entrys for visitors to company warehouses with
+3 levels of access (mgt, emp, grd) i.e. (manager, employee, guard)
+
+**Go to the `DOCUMENTATION VMS.pdf` file provided in this repo to learn more on how to use it**
 
 ---
 
@@ -58,4 +58,6 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+**This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.**
 
