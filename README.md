@@ -1,6 +1,39 @@
-# VMS
+# <ins> Visitor Management System </ins>
+
+## <ins> Description </ins>
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
+A python project that outputs the meaning of a word. Hence, automating a dictionary.
+It also has advanced checking system to look for errors. Eg: If you type `Rainn` 
+instead of `Rain`. It will prompt you for it, instead of simply throwing an error.
+
+---
+
+## Project Details
+* <ins>Name</ins> :  VMS
+* <ins>Category</ins> :  Javascript, Typescript, Html, Css, Express, Mongoose
+
+---
+
+### Packages Used ###
+| name    | Npm Links   |
+| ------- | ------------ |
+| express  | [express npm](https://www.npmjs.com/package/express) |
+| mongoose | [mongoose npm](https://www.npmjs.com/package/mongoose) |
+| json | [json npm](https://www.npmjs.com/package/json) |
+| cors | [cors npm](https://www.npmjs.com/package/cors) |
+| angular materials | [angular materials](https://material.angular.io/) |
+| angular bootstrap | [ng-bootstrap npm](https://ng-bootstrap.github.io/#/home) |
+
+
+## Editing env variables to get started
+in the `env` file.
+replace `<USERNAME>` and `<PASSWORD>` with your MongoATLAS username and password respectively to use the backend service.
+
+## commands
+to run the server (Node.js) : `npm run server` <br>
+to run the client-side (angular) : `npm run client` <br>
+to run both of then together : `npm run both` <br>
 
 ## Development server
 
@@ -26,11 +59,3 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-## Editing env variables
-in the `env` file.
-replace `<USERNAME>` and `<PASSWORD>` with your MongoATLAS username and password respectively to use this service.
-
-## commands
-to run the server (Node.js) : `npm run server`
-to run the client-side (angular) : `npm run client`
-to run both of then together : `npm run both`
