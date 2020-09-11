@@ -33,7 +33,7 @@ replace `<USERNAME>` and `<PASSWORD>` with your MongoATLAS username and password
 ## commands
 to run the server (Node.js) : `npm run server` <br>
 to run the client-side (angular) : `npm run client` <br>
-to run both of then together : `npm run both` <br>
+to run both of then together : `npm run both` <br><br>
 
 ## Development server
 
